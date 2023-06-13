@@ -1,14 +1,26 @@
 function arrayManipulation(n, queries) {
   const arr = new Array(n).fill(0);
-  for (const operation of queries) {
-    const [startIdx, endIdx, value] = operation;
-    for (let i = startIdx - 1; i <= endIdx - 1; i++) {
-      arr[i] += value; // Add the value to each element in the given range
-    }
+
+// Perform the operations on the array
+for (let i = 0; i < queries.length; i++) {
+  const [startIdx, endIdx, value] = queries[i];
+  arr[startIdx - 1] += value;
+  if (endIdx < n) {
+    arr[endIdx] -= value;
   }
+}
 
-  return Math.max(...arr);
+let max = 0;
+let sum = 0;
 
+for (let i = 0; i < n; i++) {
+  sum += arr[i];
+  if (sum > max) {
+    max = sum;
+  }
+}
+
+return max;
 }
 
 const arraySize = 5;
